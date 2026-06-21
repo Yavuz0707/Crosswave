@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap');
+:root{
+  --cream-50:#FFFCF7;--cream-100:#FFF8EF;--cream-150:#FAF7F0;--cream-200:#F5EEE2;--cream-300:#ECE2D2;--cream-400:#DFD2BD;
+  --bordeaux-50:#FBF0F1;--bordeaux-100:#F4DDDF;--bordeaux-200:#E6BCC0;--bordeaux-400:#A24E58;--bordeaux-500:#883A44;--bordeaux-600:#722F37;--bordeaux-700:#6D2932;--bordeaux-800:#542027;--bordeaux-900:#3C171C;
+  --gold-50:#FBF5E9;--gold-100:#F4E9CF;--gold-200:#E8D2A3;--gold-400:#D6B978;--gold-500:#C2A05D;--gold-600:#A6863F;
+  --ink-900:#2B2422;--ink-700:#4C4440;--ink-600:#635A54;--ink-500:#837871;--ink-400:#A89D94;--ink-300:#C8BCB1;--ink-200:#E2D7CB;
+  --green-50:#EBF3ED;--green-500:#3F7D5B;--green-700:#2E5C43;--red-50:#FBEDEC;--red-500:#B8453C;--red-700:#8E332C;--amber-50:#FBF1E2;--amber-500:#C58A33;--teal-50:#E9F1F1;--teal-500:#3E7A7A;--yt-red:#C8362C;
+  --bg-app:var(--cream-150);--bg-app-warm:var(--cream-100);--surface-card:#FFFFFF;--surface-raised:#FFFDFA;--surface-muted:var(--cream-200);--surface-sunken:var(--cream-100);
+  --border-subtle:var(--cream-300);--border-strong:var(--cream-400);--border-accent:var(--bordeaux-200);
+  --text-primary:var(--ink-900);--text-secondary:var(--ink-600);--text-muted:var(--ink-500);--text-faint:var(--ink-400);--text-on-accent:var(--cream-50);
+  --accent:var(--bordeaux-700);--accent-hover:var(--bordeaux-800);--accent-press:var(--bordeaux-900);--accent-soft:var(--bordeaux-50);--accent-soft-2:var(--bordeaux-100);
+  --gold:var(--gold-500);--gold-soft:var(--gold-50);
+  --positive:var(--green-500);--positive-soft:var(--green-50);--negative:var(--red-500);--negative-soft:var(--red-50);--warning:var(--amber-500);--warning-soft:var(--amber-50);--info:var(--teal-500);--info-soft:var(--teal-50);
+  --font-sans:'Hanken Grotesk',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;--font-serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --radius-xs:6px;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:28px;--radius-full:999px;
+  --shadow-xs:0 1px 2px rgba(60,23,28,.05);--shadow-sm:0 1px 3px rgba(60,23,28,.06),0 1px 2px rgba(60,23,28,.04);--shadow-md:0 4px 12px rgba(60,23,28,.07),0 1px 3px rgba(60,23,28,.05);--shadow-lg:0 12px 28px rgba(60,23,28,.10),0 2px 6px rgba(60,23,28,.06);--shadow-accent:0 6px 18px rgba(109,41,50,.22);
+  --focus-ring:0 0 0 3px var(--bordeaux-100);--sidebar-width:264px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--bg-app);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:var(--cream-400);border-radius:999px;border:3px solid var(--bg-app);}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-300);}
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:var(--bg-app); font-family:var(--font-sans); color:var(--text-primary); --accent:{{accentA}}; --accent-hover:{{accentH}}; --accent-soft:{{accentS}}; --accent-soft-2:{{accentS2}};">
+
+  <!-- ================= AUTH: LOGIN ================= -->
+  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex; min-height:100vh;">
+      <div style="width:46%; flex:none; background:var(--accent); color:var(--cream-50); padding:56px 56px 48px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;">
+        <span style="position:absolute; right:-120px; bottom:-120px; width:360px; height:360px; border-radius:50%; border:1px solid rgba(255,255,255,.10);"></span>
+        <span style="position:absolute; right:-60px; bottom:-60px; width:240px; height:240px; border-radius:50%; border:1px solid rgba(255,255,255,.08);"></span>
+        <div style="display:flex; align-items:center; gap:11px; position:relative;">
+          <svg width="34" height="34" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="9" fill="#FFF8EF"></rect><path d="M16 25C16 17.5 12 12.5 7.5 10.2C13.2 9.6 16 12.2 16 12.2C16 12.2 17.6 6.6 24 5C22 12.6 19.8 18.4 16 25Z" fill="var(--accent)"></path><path d="M16 25C16 20 17.2 15.5 20 11.8" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+          <span style="font-family:var(--font-serif); font-size:24px; font-weight:600; letter-spacing:.01em;">Vinea</span>
+        </div>
+        <div style="position:relative; max-width:420px;">
+          <h1 style="margin:0 0 16px; font-family:var(--font-serif); font-size:46px; font-weight:500; line-height:1.1; letter-spacing:-.01em;">Every client's growth, in one calm view.</h1>
+          <p style="margin:0; font-size:17px; line-height:1.55; color:rgba(255,248,239,.78);">Monitor channels, spot momentum, and send polished reports — without the busywork.</p>
+        </div>
+        <div style="position:relative; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); border-radius:var(--radius-lg); padding:20px 22px;">
+          <p style="margin:0 0 12px; font-family:var(--font-serif); font-size:17px; line-height:1.5; color:var(--cream-50);">"Vinea replaced three spreadsheets and a weekly scramble. Client reports now take minutes."</p>
+          <span style="font-size:13px; color:rgba(255,248,239,.7);">Account director · boutique agency</span>
+        </div>
+      </div>
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:40px 32px; background:var(--bg-app);">
+        <div style="width:100%; max-width:384px;">
+          <h2 style="margin:0 0 8px; font-family:var(--font-serif); font-size:30px; font-weight:600; color:var(--ink-900); letter-spacing:-.01em;">Welcome back</h2>
+          <p style="margin:0 0 30px; font-size:15px; color:var(--text-muted);">Sign in to your agency workspace.</p>
+          <div style="margin-bottom:16px;">
+            <label style="display:block; font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:7px;">Work email</label>
+            <input type="email" placeholder="you@agency.co" style="width:100%; height:44px; padding:0 14px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; color:var(--text-primary); outline:none;" style-focus="border-color:var(--accent); box-shadow:var(--focus-ring);" />
+          </div>
+          <div style="margin-bottom:12px;">
+            <label style="display:block; font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:7px;">Password</label>
+            <input type="password" placeholder="••••••••" style="width:100%; height:44px; padding:0 14px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; color:var(--text-primary); outline:none;" style-focus="border-color:var(--accent); box-shadow:var(--focus-ring);" />
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;">
+            <label style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-secondary); cursor:pointer;"><input type="checkbox" checked style="width:15px; height:15px; accent-color:var(--accent);" />Remember me</label>
+            <a href="#" style="font-size:13px; font-weight:600; color:var(--accent); text-decoration:none;">Forgot password?</a>
+          </div>
+          <button type="button" onClick="{{ goDashboard }}" style="width:100%; height:46px; border:none; border-radius:var(--radius-md); background:var(--accent); color:var(--text-on-accent); font-family:var(--font-sans); font-size:15px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-accent);" style-hover="background:var(--accent-hover);">Sign in</button>
+          <div style="display:flex; align-items:center; gap:14px; margin:22px 0;"><span style="flex:1; height:1px; background:var(--border-subtle);"></span><span style="font-size:12px; color:var(--text-faint);">or</span><span style="flex:1; height:1px; background:var(--border-subtle);"></span></div>
+          <button type="button" onClick="{{ goDashboard }}" style="width:100%; height:46px; display:flex; align-items:center; justify-content:center; gap:10px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; font-weight:600; color:var(--text-primary); cursor:pointer;" style-hover="background:var(--surface-muted);">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z"></path><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"></path><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84Z"></path><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38Z"></path></svg>
+            Continue with Google
+          </button>
+          <p style="margin:26px 0 0; text-align:center; font-size:14px; color:var(--text-muted);">New to Vinea? <button type="button" onClick="{{ goSignup }}" style="border:none; background:none; font-family:var(--font-sans); font-size:14px; font-weight:600; color:var(--accent); cursor:pointer; padding:0;">Create an account</button></p>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= AUTH: SIGNUP ================= -->
+  <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex; min-height:100vh;">
+      <div style="width:46%; flex:none; background:var(--accent); color:var(--cream-50); padding:56px 56px 48px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;">
+        <span style="position:absolute; right:-120px; bottom:-120px; width:360px; height:360px; border-radius:50%; border:1px solid rgba(255,255,255,.10);"></span>
+        <span style="position:absolute; right:-60px; bottom:-60px; width:240px; height:240px; border-radius:50%; border:1px solid rgba(255,255,255,.08);"></span>
+        <div style="display:flex; align-items:center; gap:11px; position:relative;">
+          <svg width="34" height="34" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="9" fill="#FFF8EF"></rect><path d="M16 25C16 17.5 12 12.5 7.5 10.2C13.2 9.6 16 12.2 16 12.2C16 12.2 17.6 6.6 24 5C22 12.6 19.8 18.4 16 25Z" fill="var(--accent)"></path><path d="M16 25C16 20 17.2 15.5 20 11.8" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+          <span style="font-family:var(--font-serif); font-size:24px; font-weight:600; letter-spacing:.01em;">Vinea</span>
+        </div>
+        <div style="position:relative; max-width:430px;">
+          <h1 style="margin:0 0 16px; font-family:var(--font-serif); font-size:46px; font-weight:500; line-height:1.1; letter-spacing:-.01em;">Start tracking every client in minutes.</h1>
+          <div style="display:flex; flex-direction:column; gap:14px; margin-top:8px;">
+            <span style="display:flex; align-items:center; gap:12px; font-size:16px; color:rgba(255,248,239,.85);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-200)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>One panel for all your client channels</span>
+            <span style="display:flex; align-items:center; gap:12px; font-size:16px; color:rgba(255,248,239,.85);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-200)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Auto-generated reports, branded for you</span>
+            <span style="display:flex; align-items:center; gap:12px; font-size:16px; color:rgba(255,248,239,.85);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold-200)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Instagram &amp; TikTok coming soon</span>
+          </div>
+        </div>
+        <div style="position:relative; font-size:13px; color:rgba(255,248,239,.65);">Trusted by independent agencies and freelancers.</div>
+      </div>
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:40px 32px; background:var(--bg-app);">
+        <div style="width:100%; max-width:384px;">
+          <h2 style="margin:0 0 8px; font-family:var(--font-serif); font-size:30px; font-weight:600; color:var(--ink-900); letter-spacing:-.01em;">Create your workspace</h2>
+          <p style="margin:0 0 28px; font-size:15px; color:var(--text-muted);">Free for 14 days. No card required.</p>
+          <div style="margin-bottom:16px;">
+            <label style="display:block; font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:7px;">Agency name</label>
+            <input type="text" placeholder="Atlas Social" style="width:100%; height:44px; padding:0 14px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; color:var(--text-primary); outline:none;" style-focus="border-color:var(--accent); box-shadow:var(--focus-ring);" />
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:block; font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:7px;">Work email</label>
+            <input type="email" placeholder="you@agency.co" style="width:100%; height:44px; padding:0 14px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; color:var(--text-primary); outline:none;" style-focus="border-color:var(--accent); box-shadow:var(--focus-ring);" />
+          </div>
+          <div style="margin-bottom:18px;">
+            <label style="display:block; font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:7px;">Password</label>
+            <input type="password" placeholder="At least 8 characters" style="width:100%; height:44px; padding:0 14px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; color:var(--text-primary); outline:none;" style-focus="border-color:var(--accent); box-shadow:var(--focus-ring);" />
+          </div>
+          <label style="display:flex; align-items:flex-start; gap:9px; font-size:13px; color:var(--text-secondary); margin-bottom:22px; cursor:pointer; line-height:1.4;"><input type="checkbox" style="width:15px; height:15px; margin-top:1px; accent-color:var(--accent);" />I agree to the terms of service and privacy policy.</label>
+          <button type="button" onClick="{{ goDashboard }}" style="width:100%; height:46px; border:none; border-radius:var(--radius-md); background:var(--accent); color:var(--text-on-accent); font-family:var(--font-sans); font-size:15px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-accent);" style-hover="background:var(--accent-hover);">Create account</button>
+          <p style="margin:26px 0 0; text-align:center; font-size:14px; color:var(--text-muted);">Already have an account? <button type="button" onClick="{{ goLogin }}" style="border:none; background:none; font-family:var(--font-sans); font-size:14px; font-weight:600; color:var(--accent); cursor:pointer; padding:0;">Sign in</button></p>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= DASHBOARD ================= -->
+  <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex; align-items:stretch; min-height:100vh;">
+      <aside style="width:var(--sidebar-width); flex:none; height:100vh; position:sticky; top:0; background:var(--surface-card); border-right:1px solid var(--border-subtle); display:flex; flex-direction:column;">
+        <div style="display:flex; align-items:center; gap:10px; padding:20px 18px 16px;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;"><rect width="32" height="32" rx="9" fill="var(--accent)"></rect><path d="M16 25C16 17.5 12 12.5 7.5 10.2C13.2 9.6 16 12.2 16 12.2C16 12.2 17.6 6.6 24 5C22 12.6 19.8 18.4 16 25Z" fill="#FFF8EF"></path><path d="M16 25C16 20 17.2 15.5 20 11.8" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"></path></svg>
+          <div style="display:flex; flex-direction:column; line-height:1.1;">
+            <span style="font-family:var(--font-serif); font-size:22px; font-weight:600; color:var(--ink-900); letter-spacing:.01em;">Vinea</span>
+            <span style="font-family:var(--font-sans); font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint);">Agency</span>
+          </div>
+        </div>
+        <div style="padding:0 14px 12px;">
+          <div style="display:flex; align-items:center; gap:8px; height:36px; padding:0 10px; background:var(--surface-sunken); border:1px solid var(--border-subtle); border-radius:var(--radius-md);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+            <input type="text" placeholder="Search clients" value="{{ query }}" onChange="{{ onSearch }}" style="flex:1; min-width:0; border:none; outline:none; background:transparent; font-family:var(--font-sans); font-size:13px; color:var(--text-primary);" />
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 18px;">
+          <span style="font-family:var(--font-sans); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint);">Clients</span>
+          <span style="font-family:var(--font-sans); font-size:11px; font-weight:600; color:var(--text-faint); background:var(--surface-muted); border-radius:var(--radius-full); padding:2px 8px;">{{ clientCount }}</span>
+        </div>
+        <div style="flex:1; overflow-y:auto; padding:2px 10px 10px; display:flex; flex-direction:column; gap:2px;">
+          <sc-for list="{{ sidebarClients }}" as="c" hint-placeholder-count="6">
+            <button type="button" onClick="{{ c.onSelect }}" style="display:flex; align-items:center; gap:11px; width:100%; text-align:left; padding:8px 10px; border-radius:var(--radius-md); border:none; cursor:pointer; position:relative; background:{{ c.itemBg }}; box-shadow:{{ c.itemShadow }};" style-hover="background:var(--surface-muted);">
+              <sc-if value="{{ c.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; left:0; top:9px; bottom:9px; width:3px; border-radius:3px; background:var(--accent);"></span></sc-if>
+              <span style="display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; flex:none; border-radius:var(--radius-full); background:{{ c.avBg }}; color:{{ c.avFg }}; font-family:var(--font-sans); font-weight:700; font-size:13px;">{{ c.initials }}</span>
+              <span style="flex:1; min-width:0; display:flex; flex-direction:column; gap:1px;">
+                <span style="font-family:var(--font-sans); font-size:14px; font-weight:{{ c.nameWeight }}; color:{{ c.nameColor }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ c.name }}</span>
+                <span style="font-family:var(--font-sans); font-size:12px; color:var(--text-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ c.subtitle }}</span>
+              </span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{ c.plColor }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
+            </button>
+          </sc-for>
+        </div>
+        <div style="padding:10px 14px; border-top:1px solid var(--border-subtle);">
+          <button type="button" style="display:flex; align-items:center; justify-content:center; gap:8px; width:100%; height:38px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); background:var(--surface-muted); color:var(--text-primary); font-family:var(--font-sans); font-size:14px; font-weight:600; cursor:pointer;" style-hover="background:var(--cream-300);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Add client
+          </button>
+          <div style="display:flex; align-items:center; gap:6px; margin-top:12px; padding-left:2px;">
+            <span style="display:inline-flex; align-items:center; gap:6px; height:22px; padding:0 9px 0 7px; border-radius:var(--radius-full); background:#FBEDF5; color:#B5377F; font-size:11px; font-weight:600; opacity:.6;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>Instagram · soon</span>
+            <span style="display:inline-flex; align-items:center; gap:6px; height:22px; padding:0 9px 0 7px; border-radius:var(--radius-full); background:#F0EEEE; color:#1F1F1F; font-size:11px; font-weight:600; opacity:.6;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8a4 4 0 0 1-4-4 1 1 0 0 0-1-1h-3a1 1 0 0 0-1 1v11a3 3 0 1 1-4-2.83V9.05A7 7 0 1 0 16 16V9.27A7 7 0 0 0 22 11"></path></svg>TikTok · soon</span>
+          </div>
+        </div>
+        <button type="button" onClick="{{ goSettings }}" style="display:flex; align-items:center; gap:10px; padding:12px 16px; border:none; border-top:1px solid var(--border-subtle); background:transparent; width:100%; text-align:left; cursor:pointer;" style-hover="background:var(--surface-muted);">
+          <span style="display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; flex:none; border-radius:var(--radius-full); background:var(--cream-200); color:var(--ink-700); font-family:var(--font-sans); font-weight:700; font-size:13px;">AS</span>
+          <span style="flex:1; min-width:0; display:flex; flex-direction:column; line-height:1.2;">
+            <span style="font-family:var(--font-sans); font-size:13px; font-weight:600; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Atlas Social</span>
+            <span style="font-family:var(--font-sans); font-size:11px; color:var(--text-faint);">Agency · Pro plan</span>
+          </span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
+        </button>
+      </aside>
+
+      <main style="flex:1; min-width:0; background:var(--bg-app); display:flex; flex-direction:column;">
+        <header style="position:sticky; top:0; z-index:20; background:var(--bg-app); border-bottom:1px solid var(--border-subtle); padding:16px 32px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+          <div style="display:flex; align-items:center; gap:13px;">
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; flex:none; border-radius:var(--radius-full); background:{{ headAvBg }}; color:{{ headAvFg }}; font-family:var(--font-sans); font-weight:700; font-size:19px;">{{ headAvInitials }}</span>
+            <div style="display:flex; flex-direction:column; gap:3px;">
+              <div style="display:flex; align-items:center; gap:9px;">
+                <h1 style="margin:0; font-family:var(--font-serif); font-size:24px; font-weight:600; color:var(--ink-900); letter-spacing:-.01em;">{{ clientName }}</h1>
+                <span style="display:inline-flex; align-items:center; gap:6px; height:20px; padding:0 8px; border-radius:var(--radius-full); background:var(--positive-soft); color:var(--green-700); border:1px solid #CFE3D6; font-size:11px; font-weight:600;"><span style="width:6px; height:6px; border-radius:50%; background:var(--green-500);"></span>Tracking</span>
+              </div>
+              <span style="display:flex; align-items:center; gap:7px; font-family:var(--font-sans); font-size:13px; color:var(--text-muted);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--yt-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>{{ clientHandle }}</span>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="display:flex; align-items:center; gap:8px; height:38px; padding:0 8px 0 11px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); background:var(--surface-card);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+              <select value="{{ range }}" onChange="{{ onRange }}" style="appearance:none; -webkit-appearance:none; border:none; outline:none; background:transparent; font-family:var(--font-sans); font-size:13px; font-weight:500; color:var(--text-secondary); cursor:pointer; padding-right:2px;"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option></select>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+            </div>
+            <button type="button" aria-label="Notifications" style="display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); background:var(--surface-card); color:var(--text-secondary); cursor:pointer;" style-hover="background:var(--surface-muted);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></button>
+            <button type="button" onClick="{{ goReportsTab }}" style="display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 16px; border-radius:var(--radius-md); border:none; background:var(--accent); color:var(--text-on-accent); font-family:var(--font-sans); font-size:14px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-accent);" style-hover="background:var(--accent-hover);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path></svg>Generate report</button>
+          </div>
+        </header>
+
+        <div style="padding:22px 32px 48px; display:flex; flex-direction:column; gap:22px;">
+          <div style="display:flex; gap:4px; border-bottom:1px solid var(--border-subtle);">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+              <button type="button" onClick="{{ t.onSelect }}" style="position:relative; padding:9px 14px 12px; border:none; background:transparent; font-family:var(--font-sans); font-size:14px; font-weight:{{ t.weight }}; color:{{ t.color }}; cursor:pointer;">{{ t.label }}<sc-if value="{{ t.active }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; left:8px; right:8px; bottom:-1px; height:2px; border-radius:2px; background:var(--accent);"></span></sc-if></button>
+            </sc-for>
+          </div>
+
+          <!-- OVERVIEW TAB -->
+          <sc-if value="{{ tabOverview }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex; flex-direction:column; gap:22px;">
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+                <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:22px; display:flex; flex-direction:column; gap:14px;">
+                  <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:13px; font-weight:500; color:var(--text-muted); letter-spacing:-.01em;">Subscribers</span><span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:var(--radius-md); background:var(--accent-soft); color:var(--accent);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span></div>
+                  <div style="font-family:var(--font-serif); font-size:38px; font-weight:600; color:var(--text-primary); line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums;">{{ clientSubs }}</div>
+                  <div style="display:flex; align-items:center; gap:8px;"><span style="display:inline-flex; align-items:center; gap:3px; padding:2px 7px 2px 5px; border-radius:var(--radius-full); background:{{ subsDelta.bg }}; color:{{ subsDelta.color }}; font-size:12px; font-weight:700; font-variant-numeric:tabular-nums;"><sc-if value="{{ subsDelta.up }}" hint-placeholder-val="{{ true }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg></sc-if><sc-if value="{{ subsDelta.down }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline><polyline points="16 17 22 17 22 11"></polyline></svg></sc-if>{{ subsDelta.text }}</span><span style="font-size:12px; color:var(--text-faint);">vs. prev 30d</span></div>
+                </div>
+                <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:22px; display:flex; flex-direction:column; gap:14px;">
+                  <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:13px; font-weight:500; color:var(--text-muted); letter-spacing:-.01em;">Total views</span><span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:var(--radius-md); background:var(--surface-muted); color:var(--text-secondary);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg></span></div>
+                  <div style="font-family:var(--font-serif); font-size:38px; font-weight:600; color:var(--text-primary); line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums;">{{ clientViews }}</div>
+                  <div style="display:flex; align-items:center; gap:8px;"><span style="display:inline-flex; align-items:center; gap:3px; padding:2px 7px 2px 5px; border-radius:var(--radius-full); background:{{ viewsDelta.bg }}; color:{{ viewsDelta.color }}; font-size:12px; font-weight:700; font-variant-numeric:tabular-nums;"><sc-if value="{{ viewsDelta.up }}" hint-placeholder-val="{{ true }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg></sc-if><sc-if value="{{ viewsDelta.down }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline><polyline points="16 17 22 17 22 11"></polyline></svg></sc-if>{{ viewsDelta.text }}</span><span style="font-size:12px; color:var(--text-faint);">vs. prev 30d</span></div>
+                </div>
+                <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:22px; display:flex; flex-direction:column; gap:14px;">
+                  <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:13px; font-weight:500; color:var(--text-muted); letter-spacing:-.01em;">30-day growth</span><span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:var(--radius-md); background:var(--surface-muted); color:var(--text-secondary);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg></span></div>
+                  <div style="font-family:var(--font-serif); font-size:38px; font-weight:600; color:var(--text-primary); line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums;">{{ clientGrowth }}</div>
+                  <div style="display:flex; align-items:center; gap:8px;"><span style="display:inline-flex; align-items:center; gap:3px; padding:2px 7px 2px 5px; border-radius:var(--radius-full); background:{{ growthDelta.bg }}; color:{{ growthDelta.color }}; font-size:12px; font-weight:700; font-variant-numeric:tabular-nums;"><sc-if value="{{ growthDelta.up }}" hint-placeholder-val="{{ true }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg></sc-if><sc-if value="{{ growthDelta.down }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline><polyline points="16 17 22 17 22 11"></polyline></svg></sc-if>{{ growthDelta.text }}</span><span style="font-size:12px; color:var(--text-faint);">vs. prev 30d</span></div>
+                </div>
+              </div>
+              <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:24px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;"><h2 style="margin:0; font-size:17px; font-weight:600; color:var(--text-primary); letter-spacing:-.01em;">Subscriber &amp; view growth</h2><div style="display:flex; gap:16px; font-size:12px; color:var(--text-muted);"><span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:12px; height:3px; border-radius:2px; background:var(--accent);"></span>Subscribers</span><sc-if value="{{ showViews }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:12px; height:3px; border-radius:2px; background:var(--gold);"></span>Views</span></sc-if></div></div>
+                <svg viewBox="0 0 1000 360" width="100%" height="260" preserveAspectRatio="none" style="display:block; overflow:visible;"><defs><linearGradient id="vinArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--accent)" stop-opacity="0.16"></stop><stop offset="100%" stop-color="var(--accent)" stop-opacity="0"></stop></linearGradient></defs><line x1="18" x2="982" y1="99" y2="99" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="2 5" vector-effect="non-scaling-stroke"></line><line x1="18" x2="982" y1="180" y2="180" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="2 5" vector-effect="non-scaling-stroke"></line><line x1="18" x2="982" y1="261" y2="261" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="2 5" vector-effect="non-scaling-stroke"></line><path d="{{ areaPath }}" fill="url(#vinArea)" stroke="none"></path><path d="{{ secPath }}" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"></path><path d="{{ linePath }}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+                <div style="display:flex; justify-content:space-between; margin-top:10px; padding:0 2px; font-size:12px; color:var(--text-faint);"><sc-for list="{{ chartLabels }}" as="l" hint-placeholder-count="5"><span>{{ l }}</span></sc-for></div>
+              </div>
+              <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:22px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;"><h2 style="margin:0; font-size:17px; font-weight:600; color:var(--text-primary); letter-spacing:-.01em;">Recent content</h2><button type="button" onClick="{{ goContentTab }}" style="display:inline-flex; align-items:center; gap:5px; padding:6px 10px; border:none; background:transparent; font-size:13px; font-weight:600; color:var(--accent); cursor:pointer; border-radius:var(--radius-sm);" style-hover="background:var(--accent-soft);">View all<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button></div>
+                <div style="width:100%; overflow-x:auto;">
+                  <table style="width:100%; border-collapse:collapse; min-width:760px;">
+                    <thead><tr><th style="padding:0 16px 12px 4px; text-align:left; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); white-space:nowrap;">Content</th><th style="padding:0 16px 12px; text-align:right; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); white-space:nowrap;">Views</th><th style="padding:0 16px 12px; text-align:right; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); white-space:nowrap;">Likes</th><th style="padding:0 16px 12px; text-align:right; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); white-space:nowrap;">Comments</th><th style="padding:0 16px 12px; text-align:left; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); white-space:nowrap;">Published</th><th style="padding:0 4px 12px 16px; text-align:right; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); white-space:nowrap;">Status</th></tr></thead>
+                    <tbody>
+                      <sc-for list="{{ contentRows }}" as="row" hint-placeholder-count="4">
+                        <tr style="border-top:1px solid var(--border-subtle);">
+                          <td style="padding:{{ row.pad }} 16px {{ row.pad }} 4px;"><span style="display:flex; align-items:center; gap:13px;"><span style="position:relative; width:68px; height:42px; flex:none; border-radius:var(--radius-sm); overflow:hidden; background:{{ row.thumb }}; display:inline-flex; align-items:center; justify-content:center; box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);"><span style="position:absolute; width:22px; height:22px; border-radius:var(--radius-full); background:rgba(255,255,255,.92); display:inline-flex; align-items:center; justify-content:center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="var(--bordeaux-700)" stroke="none" style="margin-left:1px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></span></span><span style="display:flex; flex-direction:column; gap:3px; min-width:0;"><span style="font-size:14px; font-weight:600; color:var(--text-primary); letter-spacing:-.01em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:340px;">{{ row.title }}</span><span style="font-size:12px; color:var(--text-faint);">{{ row.duration }}</span></span></span></td>
+                          <td style="padding:{{ row.pad }} 16px; text-align:right;"><span style="display:inline-flex; align-items:center; gap:6px; justify-content:flex-end; font-variant-numeric:tabular-nums; font-size:14px; color:var(--text-secondary);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>{{ row.views }}</span></td>
+                          <td style="padding:{{ row.pad }} 16px; text-align:right;"><span style="display:inline-flex; align-items:center; gap:6px; justify-content:flex-end; font-variant-numeric:tabular-nums; font-size:14px; color:var(--text-secondary);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>{{ row.likes }}</span></td>
+                          <td style="padding:{{ row.pad }} 16px; text-align:right;"><span style="display:inline-flex; align-items:center; gap:6px; justify-content:flex-end; font-variant-numeric:tabular-nums; font-size:14px; color:var(--text-secondary);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>{{ row.comments }}</span></td>
+                          <td style="padding:{{ row.pad }} 16px; font-size:14px; color:var(--text-muted); white-space:nowrap;">{{ row.date }}</td>
+                          <td style="padding:{{ row.pad }} 4px {{ row.pad }} 16px; text-align:right;"><span style="display:inline-flex; align-items:center; gap:6px; height:24px; padding:0 10px; border-radius:var(--radius-full); background:{{ row.statusBg }}; color:{{ row.statusFg }}; border:1px solid {{ row.statusBd }}; font-size:12px; font-weight:600; white-space:nowrap;"><span style="width:6px; height:6px; border-radius:50%; background:{{ row.statusDot }};"></span>{{ row.statusLabel }}</span></td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- CONTENT TAB -->
+          <sc-if value="{{ tabContent }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div style="display:flex; gap:8px;">
+                <sc-for list="{{ contentFilters }}" as="f" hint-placeholder-count="4"><button type="button" onClick="{{ f.onSelect }}" style="height:32px; padding:0 14px; border-radius:var(--radius-full); border:1px solid {{ f.border }}; background:{{ f.bg }}; color:{{ f.color }}; font-family:var(--font-sans); font-size:13px; font-weight:600; cursor:pointer;">{{ f.label }}</button></sc-for>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+                <sc-for list="{{ contentCards }}" as="card" hint-placeholder-count="6">
+                  <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:128px; background:{{ card.thumb }}; display:flex; align-items:center; justify-content:center;">
+                      <span style="width:44px; height:44px; border-radius:var(--radius-full); background:rgba(255,255,255,.9); display:inline-flex; align-items:center; justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--bordeaux-700)" stroke="none" style="margin-left:2px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></span>
+                      <span style="position:absolute; right:10px; bottom:10px; height:20px; padding:0 7px; border-radius:var(--radius-sm); background:rgba(43,36,34,.78); color:#fff; font-size:11px; font-weight:600; display:inline-flex; align-items:center;">{{ card.duration }}</span>
+                    </div>
+                    <div style="padding:16px 16px 18px; display:flex; flex-direction:column; gap:12px;">
+                      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;"><span style="font-size:14px; font-weight:600; color:var(--text-primary); line-height:1.35; letter-spacing:-.01em;">{{ card.title }}</span></div>
+                      <span style="display:inline-flex; align-items:center; gap:6px; align-self:flex-start; height:22px; padding:0 9px; border-radius:var(--radius-full); background:{{ card.statusBg }}; color:{{ card.statusFg }}; border:1px solid {{ card.statusBd }}; font-size:11px; font-weight:600;"><span style="width:5px; height:5px; border-radius:50%; background:{{ card.statusDot }};"></span>{{ card.statusLabel }} · {{ card.date }}</span>
+                      <div style="display:flex; align-items:center; gap:16px; padding-top:4px; border-top:1px solid var(--border-subtle);">
+                        <span style="display:inline-flex; align-items:center; gap:5px; font-size:13px; color:var(--text-secondary); font-variant-numeric:tabular-nums; padding-top:12px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>{{ card.views }}</span>
+                        <span style="display:inline-flex; align-items:center; gap:5px; font-size:13px; color:var(--text-secondary); font-variant-numeric:tabular-nums; padding-top:12px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>{{ card.likes }}</span>
+                        <span style="display:inline-flex; align-items:center; gap:5px; font-size:13px; color:var(--text-secondary); font-variant-numeric:tabular-nums; padding-top:12px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>{{ card.comments }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- AUDIENCE TAB -->
+          <sc-if value="{{ tabAudience }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:18px;">
+              <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:24px;">
+                <h3 style="margin:0 0 18px; font-size:15px; font-weight:600; color:var(--text-primary);">Age distribution</h3>
+                <div style="display:flex; flex-direction:column; gap:14px;">
+                  <sc-for list="{{ ageDist }}" as="a" hint-placeholder-count="6"><div style="display:flex; align-items:center; gap:14px;"><span style="width:52px; font-size:13px; color:var(--text-secondary); font-variant-numeric:tabular-nums;">{{ a.label }}</span><span style="flex:1; height:8px; border-radius:var(--radius-full); background:var(--surface-muted); overflow:hidden;"><span style="display:block; height:100%; width:{{ a.width }}; background:var(--accent); border-radius:var(--radius-full);"></span></span><span style="width:38px; text-align:right; font-size:13px; font-weight:600; color:var(--text-primary); font-variant-numeric:tabular-nums;">{{ a.pct }}%</span></div></sc-for>
+                </div>
+              </div>
+              <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:24px;">
+                <h3 style="margin:0 0 18px; font-size:15px; font-weight:600; color:var(--text-primary);">Top countries</h3>
+                <div style="display:flex; flex-direction:column; gap:14px;">
+                  <sc-for list="{{ countries }}" as="c" hint-placeholder-count="6"><div style="display:flex; align-items:center; gap:14px;"><span style="width:128px; font-size:13px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ c.name }}</span><span style="flex:1; height:8px; border-radius:var(--radius-full); background:var(--surface-muted); overflow:hidden;"><span style="display:block; height:100%; width:{{ c.width }}; background:var(--gold); border-radius:var(--radius-full);"></span></span><span style="width:38px; text-align:right; font-size:13px; font-weight:600; color:var(--text-primary); font-variant-numeric:tabular-nums;">{{ c.pct }}%</span></div></sc-for>
+                </div>
+              </div>
+              <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:24px;">
+                <h3 style="margin:0 0 18px; font-size:15px; font-weight:600; color:var(--text-primary);">Gender split</h3>
+                <div style="display:flex; height:14px; border-radius:var(--radius-full); overflow:hidden; margin-bottom:18px;"><span style="width:{{ gender.fW }}; background:var(--accent);"></span><span style="width:{{ gender.mW }}; background:var(--gold);"></span><span style="width:{{ gender.oW }}; background:var(--cream-400);"></span></div>
+                <div style="display:flex; gap:24px;"><span style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-secondary);"><span style="width:10px; height:10px; border-radius:50%; background:var(--accent);"></span>Female {{ gender.f }}%</span><span style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-secondary);"><span style="width:10px; height:10px; border-radius:50%; background:var(--gold);"></span>Male {{ gender.m }}%</span><span style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-secondary);"><span style="width:10px; height:10px; border-radius:50%; background:var(--cream-400);"></span>Other {{ gender.o }}%</span></div>
+              </div>
+              <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:24px;">
+                <h3 style="margin:0 0 18px; font-size:15px; font-weight:600; color:var(--text-primary);">Traffic sources</h3>
+                <div style="display:flex; flex-direction:column; gap:14px;">
+                  <sc-for list="{{ sources }}" as="s" hint-placeholder-count="5"><div style="display:flex; align-items:center; gap:14px;"><span style="width:140px; font-size:13px; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ s.name }}</span><span style="flex:1; height:8px; border-radius:var(--radius-full); background:var(--surface-muted); overflow:hidden;"><span style="display:block; height:100%; width:{{ s.width }}; background:var(--accent); border-radius:var(--radius-full);"></span></span><span style="width:38px; text-align:right; font-size:13px; font-weight:600; color:var(--text-primary); font-variant-numeric:tabular-nums;">{{ s.pct }}%</span></div></sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- REPORTS TAB -->
+          <sc-if value="{{ tabReports }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <div><h2 style="margin:0 0 4px; font-size:17px; font-weight:600; color:var(--text-primary);">Reports</h2><p style="margin:0; font-size:13px; color:var(--text-muted);">Generated and scheduled reports for {{ clientName }}.</p></div>
+                <button type="button" style="display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 16px; border-radius:var(--radius-md); border:none; background:var(--accent); color:var(--text-on-accent); font-size:14px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-accent);" style-hover="background:var(--accent-hover);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>New report</button>
+              </div>
+              <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); overflow:hidden;">
+                <sc-for list="{{ reports }}" as="r" hint-placeholder-count="4">
+                  <div style="display:flex; align-items:center; gap:16px; padding:18px 22px; border-top:{{ r.border }};">
+                    <span style="display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; flex:none; border-radius:var(--radius-md); background:var(--accent-soft); color:var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path></svg></span>
+                    <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;"><span style="font-size:15px; font-weight:600; color:var(--text-primary); letter-spacing:-.01em;">{{ r.name }}</span><span style="font-size:13px; color:var(--text-muted);">{{ r.period }} · {{ r.date }}</span></div>
+                    <span style="display:inline-flex; align-items:center; gap:6px; height:24px; padding:0 10px; border-radius:var(--radius-full); background:{{ r.statusBg }}; color:{{ r.statusFg }}; border:1px solid {{ r.statusBd }}; font-size:12px; font-weight:600;"><span style="width:6px; height:6px; border-radius:50%; background:{{ r.statusDot }};"></span>{{ r.statusLabel }}</span>
+                    <button type="button" aria-label="Download" style="display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); background:var(--surface-card); color:var(--text-secondary); cursor:pointer;" style-hover="background:var(--surface-muted);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></svg></button>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </main>
+    </div>
+  </sc-if>
+
+  <!-- ================= SETTINGS ================= -->
+  <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+    <div style="min-height:100vh; display:flex; flex-direction:column;">
+      <header style="position:sticky; top:0; z-index:20; background:var(--surface-card); border-bottom:1px solid var(--border-subtle); padding:14px 32px; display:flex; align-items:center; gap:16px;">
+        <button type="button" onClick="{{ goDashboard }}" style="display:inline-flex; align-items:center; gap:8px; height:36px; padding:0 12px 0 8px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); background:var(--surface-card); color:var(--text-secondary); font-family:var(--font-sans); font-size:13px; font-weight:600; cursor:pointer;" style-hover="background:var(--surface-muted);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>Back to dashboard</button>
+        <h1 style="margin:0; font-family:var(--font-serif); font-size:22px; font-weight:600; color:var(--ink-900); letter-spacing:-.01em;">Settings</h1>
+      </header>
+      <div style="display:flex; max-width:1080px; width:100%; margin:0 auto; padding:32px; gap:36px; align-items:flex-start;">
+        <nav style="width:212px; flex:none; display:flex; flex-direction:column; gap:3px; position:sticky; top:96px;">
+          <sc-for list="{{ settingsNav }}" as="s" hint-placeholder-count="4"><button type="button" onClick="{{ s.onSelect }}" style="display:flex; align-items:center; gap:11px; width:100%; text-align:left; height:42px; padding:0 14px; border-radius:var(--radius-md); border:none; cursor:pointer; background:{{ s.bg }}; color:{{ s.color }}; font-family:var(--font-sans); font-size:14px; font-weight:{{ s.weight }};" style-hover="background:var(--surface-muted);">{{ s.label }}</button></sc-for>
+        </nav>
+        <div style="flex:1; min-width:0;">
+
+          <sc-if value="{{ secProfile }}" hint-placeholder-val="{{ true }}">
+            <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:28px;">
+              <h2 style="margin:0 0 4px; font-size:18px; font-weight:600; color:var(--text-primary); letter-spacing:-.01em;">Agency profile</h2>
+              <p style="margin:0 0 24px; font-size:14px; color:var(--text-muted);">How your agency appears across Vinea and on client reports.</p>
+              <div style="display:flex; align-items:center; gap:16px; padding-bottom:24px; margin-bottom:24px; border-bottom:1px solid var(--border-subtle);">
+                <span style="display:inline-flex; align-items:center; justify-content:center; width:60px; height:60px; flex:none; border-radius:var(--radius-full); background:var(--cream-200); color:var(--ink-700); font-family:var(--font-sans); font-weight:700; font-size:22px;">AS</span>
+                <div style="display:flex; flex-direction:column; gap:8px;"><button type="button" style="height:36px; padding:0 14px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); background:var(--surface-card); font-family:var(--font-sans); font-size:13px; font-weight:600; color:var(--text-primary); cursor:pointer;" style-hover="background:var(--surface-muted);">Change logo</button><span style="font-size:12px; color:var(--text-faint);">PNG or SVG, at least 256×256.</span></div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+                <div><label style="display:block; font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:7px;">Agency name</label><input type="text" value="Atlas Social" style="width:100%; height:44px; padding:0 14px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; color:var(--text-primary); outline:none;" style-focus="border-color:var(--accent); box-shadow:var(--focus-ring);" /></div>
+                <div><label style="display:block; font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:7px;">Contact email</label><input type="email" value="hello@atlassocial.co" style="width:100%; height:44px; padding:0 14px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; color:var(--text-primary); outline:none;" style-focus="border-color:var(--accent); box-shadow:var(--focus-ring);" /></div>
+                <div><label style="display:block; font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:7px;">Website</label><input type="text" value="atlassocial.co" style="width:100%; height:44px; padding:0 14px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; color:var(--text-primary); outline:none;" style-focus="border-color:var(--accent); box-shadow:var(--focus-ring);" /></div>
+                <div><label style="display:block; font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:7px;">Time zone</label><div style="display:flex; align-items:center; height:44px; padding:0 14px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--surface-card);"><select style="appearance:none; -webkit-appearance:none; border:none; outline:none; background:transparent; width:100%; font-family:var(--font-sans); font-size:14px; color:var(--text-primary); cursor:pointer;"><option>(GMT+03:00) Istanbul</option><option>(GMT+00:00) London</option><option>(GMT−05:00) New York</option></select></div></div>
+              </div>
+              <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:26px;"><button type="button" style="height:42px; padding:0 18px; border-radius:var(--radius-md); border:1px solid var(--border-subtle); background:var(--surface-card); font-family:var(--font-sans); font-size:14px; font-weight:600; color:var(--text-secondary); cursor:pointer;" style-hover="background:var(--surface-muted);">Cancel</button><button type="button" style="height:42px; padding:0 20px; border-radius:var(--radius-md); border:none; background:var(--accent); color:var(--text-on-accent); font-family:var(--font-sans); font-size:14px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-accent);" style-hover="background:var(--accent-hover);">Save changes</button></div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ secPlan }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:18px;">
+              <div style="background:var(--accent); color:var(--cream-50); border-radius:var(--radius-lg); box-shadow:var(--shadow-md); padding:26px; display:flex; align-items:center; justify-content:space-between; gap:20px;">
+                <div><div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><span style="font-family:var(--font-serif); font-size:22px; font-weight:600; white-space:nowrap;">Pro plan</span><span style="height:22px; padding:0 9px; border-radius:var(--radius-full); background:var(--gold); color:var(--bordeaux-900); font-size:11px; font-weight:700; display:inline-flex; align-items:center;">CURRENT</span></div><p style="margin:0; font-size:14px; color:rgba(255,248,239,.8);">$49 / month · renews Jul 14, 2026</p></div>
+                <button type="button" style="height:42px; padding:0 20px; border-radius:var(--radius-md); border:none; background:var(--cream-50); color:var(--accent); font-family:var(--font-sans); font-size:14px; font-weight:700; cursor:pointer; white-space:nowrap;">Upgrade plan</button>
+              </div>
+              <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:24px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;"><span style="font-size:14px; font-weight:600; color:var(--text-primary); white-space:nowrap;">Client usage</span><span style="font-size:13px; color:var(--text-muted); font-variant-numeric:tabular-nums;">6 of 25 clients</span></div>
+                <span style="display:block; height:10px; border-radius:var(--radius-full); background:var(--surface-muted); overflow:hidden;"><span style="display:block; height:100%; width:24%; background:var(--accent); border-radius:var(--radius-full);"></span></span>
+              </div>
+              <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:24px;">
+                <h3 style="margin:0 0 16px; font-size:15px; font-weight:600; color:var(--text-primary);">Billing history</h3>
+                <sc-for list="{{ invoices }}" as="inv" hint-placeholder-count="3"><div style="display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-top:{{ inv.border }};"><div style="display:flex; flex-direction:column; gap:2px;"><span style="font-size:14px; font-weight:600; color:var(--text-primary);">{{ inv.date }}</span><span style="font-size:12px; color:var(--text-faint);">Pro plan · monthly</span></div><div style="display:flex; align-items:center; gap:16px;"><span style="font-size:14px; font-weight:600; color:var(--text-primary); font-variant-numeric:tabular-nums;">{{ inv.amount }}</span><a href="#" style="font-size:13px; font-weight:600; color:var(--accent); text-decoration:none;">Invoice</a></div></div></sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ secNotif }}" hint-placeholder-val="{{ false }}">
+            <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:28px;">
+              <h2 style="margin:0 0 4px; font-size:18px; font-weight:600; color:var(--text-primary); letter-spacing:-.01em;">Notifications</h2>
+              <p style="margin:0 0 22px; font-size:14px; color:var(--text-muted);">Choose what Vinea sends to your inbox.</p>
+              <sc-for list="{{ notifList }}" as="n" hint-placeholder-count="4"><div style="display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px 0; border-top:{{ n.border }};"><div style="display:flex; flex-direction:column; gap:3px;"><span style="font-size:14px; font-weight:600; color:var(--text-primary);">{{ n.label }}</span><span style="font-size:13px; color:var(--text-muted);">{{ n.desc }}</span></div><button type="button" onClick="{{ n.onToggle }}" aria-label="Toggle" style="position:relative; width:44px; height:25px; flex:none; border-radius:var(--radius-full); border:none; cursor:pointer; background:{{ n.track }}; transition:background var(--dur-fast,120ms) ease;"><span style="position:absolute; top:3px; left:{{ n.knob }}; width:19px; height:19px; border-radius:50%; background:#fff; box-shadow:var(--shadow-sm); transition:left var(--dur-fast,120ms) ease;"></span></button></div></sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ secTeam }}" hint-placeholder-val="{{ false }}">
+            <div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:28px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;"><div><h2 style="margin:0 0 4px; font-size:18px; font-weight:600; color:var(--text-primary); letter-spacing:-.01em;">Team members</h2><p style="margin:0; font-size:14px; color:var(--text-muted);">People with access to your Vinea workspace.</p></div><button type="button" style="display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 16px; border-radius:var(--radius-md); border:none; background:var(--accent); color:var(--text-on-accent); font-size:14px; font-weight:600; cursor:pointer; box-shadow:var(--shadow-accent);" style-hover="background:var(--accent-hover);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Invite member</button></div>
+              <sc-for list="{{ team }}" as="m" hint-placeholder-count="4"><div style="display:flex; align-items:center; gap:14px; padding:14px 0; border-top:{{ m.border }};"><span style="display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; flex:none; border-radius:var(--radius-full); background:{{ m.avBg }}; color:{{ m.avFg }}; font-family:var(--font-sans); font-weight:700; font-size:15px;">{{ m.initials }}</span><div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;"><span style="font-size:14px; font-weight:600; color:var(--text-primary);">{{ m.name }}</span><span style="font-size:13px; color:var(--text-muted);">{{ m.email }}</span></div><span style="height:24px; padding:0 11px; border-radius:var(--radius-full); background:{{ m.roleBg }}; color:{{ m.roleFg }}; border:1px solid {{ m.roleBd }}; font-size:12px; font-weight:600; display:inline-flex; align-items:center;">{{ m.role }}</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer;"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg></div></sc-for>
+            </div>
+          </sc-if>
+
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1320,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Bordeaux&quot;,&quot;Teal&quot;,&quot;Forest&quot;,&quot;Gold&quot;],&quot;default&quot;:&quot;Bordeaux&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showViewsSeries&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;tableDensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Comfortable&quot;,&quot;Compact&quot;],&quot;default&quot;:&quot;Comfortable&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen:"login", selectedId:"aurora", query:"", range:"30", tab:"overview", settingsSection:"profile", contentFilter:"all", notif:{ weekly:true, growth:true, comments:false, billing:true } };
+    this.data = this.buildData();
+  }
+  pick(name = "") {
+    const SW = [["#6D2932","#FBF0F1"],["#A6863F","#FBF5E9"],["#3F7D5B","#EBF3ED"],["#3E7A7A","#E9F1F1"],["#883A44","#F4DDDF"],["#A24E58","#FBF0F1"],["#9A6A21","#FBF1E2"],["#635A54","#F5EEE2"]];
+    let h = 0; for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+    return SW[h % SW.length];
+  }
+  initials(name = "") { const p = name.trim().split(/\s+/); return ((p[0] && p[0][0] || "") + (p[1] && p[1][0] || "")).toUpperCase() || "?"; }
+  mkDelta(d) { const up = Number(d) >= 0; return { up, down: !up, text: (up ? "+" : "") + d + "%", color: up ? "var(--positive)" : "var(--negative)", bg: up ? "var(--positive-soft)" : "var(--negative-soft)" }; }
+  buildPath(values, min, max) {
+    const W = 1000, H = 360, pad = 18, n = values.length, span = (max - min) || 1;
+    const step = n > 1 ? (W - pad * 2) / (n - 1) : 0;
+    return values.map((v, i) => { const x = pad + i * step; const y = H - pad - ((v - min) / span) * (H - pad * 2); return (i === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1); }).join(" ");
+  }
+  buildData() {
+    const labels = ["May 22", "May 29", "Jun 5", "Jun 12", "Jun 19"];
+    const clients = [
+      { id:"aurora", name:"Aurora Studio", handle:"@aurorastudio", platform:"youtube", subs:"1.24M", subsDelta:12.4, views:"48.2M", viewsDelta:8.1, growth:"+62.1K", growthDelta:5.6,
+        subsSeries:[40,42,41,45,48,52,51,58,62,66,69,74,78,83], viewSeries:[22,26,24,30,28,35,40,38,44,48,46,55,60,64],
+        content:[
+          { title:"How we grew to 1M subscribers", thumb:"#6D2932", duration:"12:04", views:"482K", likes:"31.2K", comments:"1.8K", date:"Jun 14", status:"published" },
+          { title:"The studio setup tour 2026", thumb:"#A6863F", duration:"08:41", views:"126K", likes:"9.4K", comments:"612", date:"Jun 9", status:"published" },
+          { title:"Editing our biggest video yet", thumb:"#3F7D5B", duration:"18:55", views:"204K", likes:"14.1K", comments:"903", date:"Jun 3", status:"published" },
+          { title:"Behind the scenes — summer campaign", thumb:"#3E7A7A", duration:"15:22", views:"—", likes:"—", comments:"—", date:"Jun 22", status:"scheduled" } ] },
+      { id:"kova", name:"Kova Films", handle:"@kovafilms", platform:"youtube", subs:"1.02M", subsDelta:4.7, views:"64.1M", viewsDelta:3.2, growth:"+38.4K", growthDelta:1.9,
+        subsSeries:[70,71,72,72,74,75,76,77,77,79,80,81,82,84], viewSeries:[50,52,53,55,54,57,59,58,61,62,63,65,66,68],
+        content:[
+          { title:"Shooting a film in 24 hours", thumb:"#542027", duration:"22:10", views:"1.2M", likes:"88.4K", comments:"4.2K", date:"Jun 12", status:"published" },
+          { title:"Cinematic b-roll masterclass", thumb:"#A6863F", duration:"14:03", views:"342K", likes:"21.7K", comments:"1.1K", date:"Jun 6", status:"published" },
+          { title:"We tested every cinema lens", thumb:"#2B2422", duration:"19:47", views:"511K", likes:"33.9K", comments:"2.4K", date:"May 30", status:"published" },
+          { title:"Director's cut — drafting", thumb:"#3F7D5B", duration:"—", views:"—", likes:"—", comments:"—", date:"Jun 24", status:"draft" } ] },
+      { id:"volt", name:"Volt Audio", handle:"@voltaudio", platform:"youtube", subs:"524K", subsDelta:-2.3, views:"21.4M", viewsDelta:-1.1, growth:"−4.1K", growthDelta:-2.3,
+        subsSeries:[60,59,59,58,58,57,57,56,56,55,55,54,54,53], viewSeries:[44,43,43,42,42,41,42,41,40,41,40,39,40,39],
+        content:[
+          { title:"Why your mix sounds muddy", thumb:"#6D2932", duration:"10:18", views:"92K", likes:"6.1K", comments:"488", date:"Jun 11", status:"published" },
+          { title:"Best budget studio monitors", thumb:"#A6863F", duration:"13:40", views:"61K", likes:"3.9K", comments:"271", date:"Jun 4", status:"published" },
+          { title:"Mastering chain explained", thumb:"#3E7A7A", duration:"16:02", views:"78K", likes:"5.2K", comments:"356", date:"May 28", status:"published" } ] },
+      { id:"mert", name:"Mert Kaya", handle:"@mertkaya", platform:"youtube", subs:"312K", subsDelta:6.1, views:"9.8M", viewsDelta:7.4, growth:"+17.9K", growthDelta:6.1,
+        subsSeries:[20,21,21,22,23,24,24,25,26,27,28,29,30,31], viewSeries:[12,13,13,14,15,15,16,17,17,18,19,19,20,21],
+        content:[
+          { title:"A day in my life as a creator", thumb:"#542027", duration:"09:33", views:"148K", likes:"12.3K", comments:"942", date:"Jun 13", status:"published" },
+          { title:"My 2026 camera gear", thumb:"#A6863F", duration:"11:21", views:"97K", likes:"7.8K", comments:"603", date:"Jun 7", status:"published" },
+          { title:"Q&A — 300K special", thumb:"#3F7D5B", duration:"24:50", views:"63K", likes:"5.4K", comments:"1.2K", date:"May 31", status:"published" } ] },
+      { id:"lume", name:"Lume Beauty", handle:"@lumebeauty", platform:"youtube", subs:"88.4K", subsDelta:18.2, views:"3.1M", viewsDelta:21.7, growth:"+13.6K", growthDelta:18.2,
+        subsSeries:[4,4.5,5,5.4,5.9,6.3,6.8,7.1,7.6,7.9,8.2,8.5,8.7,8.84].map(n=>n*10), viewSeries:[2,2.3,2.6,2.8,3,3.4,3.6,3.9,4.1,4.4,4.6,4.9,5.1,5.3].map(n=>n*10),
+        content:[
+          { title:"My everyday glow routine", thumb:"#6D2932", duration:"07:42", views:"212K", likes:"18.9K", comments:"1.4K", date:"Jun 15", status:"published" },
+          { title:"Testing viral skincare", thumb:"#A6863F", duration:"12:11", views:"184K", likes:"15.2K", comments:"1.1K", date:"Jun 8", status:"published" },
+          { title:"Summer makeup edit", thumb:"#3E7A7A", duration:"09:58", views:"—", likes:"—", comments:"—", date:"Jun 21", status:"scheduled" } ] },
+      { id:"selin", name:"Selin Yıldız", handle:"@selinyildiz", platform:"youtube", subs:"47.2K", subsDelta:24.6, views:"1.4M", viewsDelta:29.1, growth:"+9.3K", growthDelta:24.6,
+        subsSeries:[2,2.2,2.5,2.7,3,3.3,3.6,3.8,4.1,4.3,4.5,4.6,4.7,4.72].map(n=>n*10), viewSeries:[0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2,2.1].map(n=>n*10),
+        content:[
+          { title:"I quit my job to do this", thumb:"#542027", duration:"13:05", views:"98K", likes:"11.2K", comments:"1.6K", date:"Jun 16", status:"published" },
+          { title:"Reacting to my first video", thumb:"#A6863F", duration:"10:47", views:"54K", likes:"6.7K", comments:"812", date:"Jun 10", status:"published" },
+          { title:"30K subscriber Q&A", thumb:"#3F7D5B", duration:"—", views:"—", likes:"—", comments:"—", date:"Jun 23", status:"draft" } ] },
+    ];
+    return { labels, clients };
+  }
+  ic(path) { return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + path + '</svg>'; }
+
+  renderVals() {
+    const { clients, labels } = this.data;
+    const st = this.state;
+    const ACC = {
+      Bordeaux:{ a:"var(--bordeaux-700)", h:"var(--bordeaux-800)", s:"var(--bordeaux-50)", s2:"var(--bordeaux-100)" },
+      Teal:{ a:"#3E7A7A", h:"#336363", s:"var(--teal-50)", s2:"#CDE3E3" },
+      Forest:{ a:"var(--green-700)", h:"#264E39", s:"var(--green-50)", s2:"#CFE3D6" },
+      Gold:{ a:"var(--gold-600)", h:"#8C7034", s:"var(--gold-50)", s2:"var(--gold-100)" },
+    };
+    const acc = ACC[this.props.accentColor || "Bordeaux"] || ACC.Bordeaux;
+    const density = this.props.tableDensity || "Comfortable";
+    const pad = density === "Compact" ? "9px" : "14px";
+    const showViews = this.props.showViewsSeries == null ? true : !!this.props.showViewsSeries;
+
+    const q = (st.query || "").toLowerCase();
+    const sidebarClients = clients.filter(c => c.name.toLowerCase().includes(q)).map(c => {
+      const sw = this.pick(c.name); const selected = c.id === st.selectedId;
+      return { name:c.name, subtitle:c.subs + " subscribers", initials:this.initials(c.name), avFg:sw[0], avBg:sw[1], selected,
+        itemBg: selected ? "var(--accent-soft)" : "transparent", itemShadow: selected ? "inset 0 0 0 1px var(--accent-soft-2)" : "none",
+        nameColor: selected ? "var(--accent)" : "var(--text-primary)", nameWeight: selected ? 600 : 500,
+        plColor:{ youtube:"var(--yt-red)", instagram:"#B5377F", tiktok:"#1F1F1F" }[c.platform] || "var(--yt-red)",
+        onSelect: () => this.setState({ selectedId:c.id }) };
+    });
+
+    const client = clients.find(c => c.id === st.selectedId) || clients[0];
+    const hav = this.pick(client.name);
+
+    const sData = client.subsSeries; const sec = showViews ? client.viewSeries : [];
+    const all = sData.concat(sec);
+    const max = Math.max.apply(null, all.concat([1])) * 1.08; const min = Math.min.apply(null, all.concat([0])) * 0.98;
+    const linePath = this.buildPath(sData, min, max);
+    const areaPath = sData.length ? linePath + " L982.0 342 L18.0 342 Z" : "";
+    const secPath = sec.length ? this.buildPath(sec, min, max) : "";
+
+    const ST = {
+      published:{ label:"Published", fg:"var(--green-700)", bg:"var(--positive-soft)", bd:"#CFE3D6", dot:"var(--green-500)" },
+      scheduled:{ label:"Scheduled", fg:"var(--info)", bg:"var(--info-soft)", bd:"#C9DEDE", dot:"var(--info)" },
+      draft:{ label:"Draft", fg:"var(--text-secondary)", bg:"var(--surface-muted)", bd:"var(--border-subtle)", dot:"var(--text-muted)" },
+    };
+    const contentRows = client.content.map(r => { const s = ST[r.status] || ST.published; return { title:r.title, duration:r.duration, views:r.views, likes:r.likes, comments:r.comments, date:r.date, thumb:r.thumb, pad, statusLabel:s.label, statusFg:s.fg, statusBg:s.bg, statusBd:s.bd, statusDot:s.dot }; });
+
+    const cf = st.contentFilter;
+    const contentCards = client.content.filter(r => cf === "all" ? true : r.status === cf).map(r => { const s = ST[r.status] || ST.published; return { title:r.title, duration: r.duration === "—" ? "0:00" : r.duration, views:r.views, likes:r.likes, comments:r.comments, date:r.date, thumb:r.thumb, statusLabel:s.label, statusFg:s.fg, statusBg:s.bg, statusBd:s.bd, statusDot:s.dot }; });
+    const cfDefs = [["all","All"],["published","Published"],["scheduled","Scheduled"],["draft","Drafts"]];
+    const contentFilters = cfDefs.map(f => { const active = cf === f[0]; return { label:f[1], bg: active ? "var(--accent)" : "var(--surface-card)", color: active ? "var(--text-on-accent)" : "var(--text-secondary)", border: active ? "var(--accent)" : "var(--border-subtle)", onSelect: () => this.setState({ contentFilter:f[0] }) }; });
+
+    const tabDefs = [["overview","Overview"],["content","Content"],["audience","Audience"],["reports","Reports"]];
+    const tabs = tabDefs.map(t => { const active = st.tab === t[0]; return { label:t[1], active, color: active ? "var(--accent)" : "var(--text-muted)", weight: active ? 600 : 500, onSelect: () => this.setState({ tab:t[0] }) }; });
+
+    const ageRaw = [["13–17",6],["18–24",34],["25–34",38],["35–44",15],["45–54",5],["55+",2]];
+    const ageDist = ageRaw.map(a => ({ label:a[0], pct:a[1], width:(a[1] / 38 * 100).toFixed(0) + "%" }));
+    const ctyRaw = [["United States",28],["United Kingdom",14],["Germany",11],["Turkey",9],["Canada",7],["Australia",5]];
+    const countries = ctyRaw.map(c => ({ name:c[0], pct:c[1], width:(c[1] / 28 * 100).toFixed(0) + "%" }));
+    const gender = { f:54, m:44, o:2, fW:"54%", mW:"44%", oW:"2%" };
+    const srcRaw = [["YouTube search",32],["Suggested videos",27],["Browse features",19],["External",12],["Channel pages",10]];
+    const sources = srcRaw.map(s => ({ name:s[0], pct:s[1], width:(s[1] / 32 * 100).toFixed(0) + "%" }));
+
+    const RS = { ready:{ label:"Ready", fg:"var(--green-700)", bg:"var(--positive-soft)", bd:"#CFE3D6", dot:"var(--green-500)" }, scheduled:{ label:"Scheduled", fg:"var(--info)", bg:"var(--info-soft)", bd:"#C9DEDE", dot:"var(--info)" }, draft:{ label:"Draft", fg:"var(--text-secondary)", bg:"var(--surface-muted)", bd:"var(--border-subtle)", dot:"var(--text-muted)" } };
+    const repRaw = [
+      { name:"Monthly performance — May 2026", period:"May 1 – May 31", date:"Generated Jun 1", status:"ready" },
+      { name:"Weekly digest — Jun week 2", period:"Jun 8 – Jun 14", date:"Generated Jun 15", status:"ready" },
+      { name:"Q2 growth summary", period:"Apr 1 – Jun 30", date:"Scheduled Jul 1", status:"scheduled" },
+      { name:"Summer campaign recap", period:"Jun 1 – Jun 21", date:"Last edited Jun 18", status:"draft" },
+    ];
+    const reports = repRaw.map((r, i) => { const s = RS[r.status]; return Object.assign({}, r, { border: i === 0 ? "none" : "1px solid var(--border-subtle)", statusLabel:s.label, statusFg:s.fg, statusBg:s.bg, statusBd:s.bd, statusDot:s.dot }); });
+
+    const navDefs = [
+      ["profile","Profile",'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>'],
+      ["plan","Plan & billing",'<rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line>'],
+      ["notifications","Notifications",'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>'],
+      ["team","Team",'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>'],
+    ];
+    const settingsNav = navDefs.map(n => { const active = st.settingsSection === n[0]; return { label:n[1], icon:this.ic(n[2]), bg: active ? "var(--accent-soft)" : "transparent", color: active ? "var(--accent)" : "var(--text-secondary)", weight: active ? 600 : 500, onSelect: () => this.setState({ settingsSection:n[0] }) }; });
+
+    const invRaw = [["Jun 14, 2026","$49.00"],["May 14, 2026","$49.00"],["Apr 14, 2026","$49.00"]];
+    const invoices = invRaw.map((v, i) => ({ date:v[0], amount:v[1], border: i === 0 ? "none" : "1px solid var(--border-subtle)" }));
+
+    const notifDefs = [
+      ["weekly","Weekly report email","A digest of every client's growth, each Monday."],
+      ["growth","Growth alerts","Notify me when a channel spikes or drops sharply."],
+      ["comments","New comments","When a client comments on a shared report."],
+      ["billing","Billing & receipts","Payment confirmations and renewal reminders."],
+    ];
+    const notifList = notifDefs.map((n, i) => { const on = !!st.notif[n[0]]; return { label:n[1], desc:n[2], on, track: on ? "var(--accent)" : "var(--cream-400)", knob: on ? "22px" : "3px", border: i === 0 ? "none" : "1px solid var(--border-subtle)", onToggle: () => this.setState(s => ({ notif: Object.assign({}, s.notif, { [n[0]]: !s.notif[n[0]] }) })) }; });
+
+    const roleTone = { Owner:{ bg:"var(--accent-soft)", fg:"var(--accent)", bd:"var(--accent-soft-2)" }, Admin:{ bg:"var(--gold-soft)", fg:"var(--gold-600)", bd:"var(--gold-100)" }, Editor:{ bg:"var(--info-soft)", fg:"var(--info)", bd:"#C9DEDE" }, Viewer:{ bg:"var(--surface-muted)", fg:"var(--text-secondary)", bd:"var(--border-subtle)" } };
+    const teamRaw = [["Atlas Social","Owner","admin@atlassocial.co"],["Deniz Arslan","Admin","deniz@atlassocial.co"],["Mara Lin","Editor","mara@atlassocial.co"],["Jon Pek","Viewer","jon@atlassocial.co"]];
+    const team = teamRaw.map((m, i) => { const sw = this.pick(m[0]); const rt = roleTone[m[1]] || roleTone.Viewer; return { name:m[0], role:m[1], email:m[2], initials:this.initials(m[0]), avFg:sw[0], avBg:sw[1], roleBg:rt.bg, roleFg:rt.fg, roleBd:rt.bd, border: i === 0 ? "none" : "1px solid var(--border-subtle)" }; });
+
+    return {
+      accentA:acc.a, accentH:acc.h, accentS:acc.s, accentS2:acc.s2,
+      isLogin: st.screen === "login", isSignup: st.screen === "signup", isDashboard: st.screen === "dashboard", isSettings: st.screen === "settings",
+      goLogin: () => this.setState({ screen:"login" }), goSignup: () => this.setState({ screen:"signup" }), goDashboard: () => this.setState({ screen:"dashboard" }), goSettings: () => this.setState({ screen:"settings" }),
+      goReportsTab: () => this.setState({ tab:"reports" }), goContentTab: () => this.setState({ tab:"content" }),
+      clientCount: clients.length, sidebarClients,
+      headAvInitials: this.initials(client.name), headAvFg:hav[0], headAvBg:hav[1],
+      clientName: client.name, clientHandle: client.handle, clientSubs: client.subs, clientViews: client.views, clientGrowth: client.growth,
+      subsDelta: this.mkDelta(client.subsDelta), viewsDelta: this.mkDelta(client.viewsDelta), growthDelta: this.mkDelta(client.growthDelta),
+      showViews, linePath, areaPath, secPath, chartLabels: labels,
+      contentRows, contentCards, contentFilters, tabs,
+      tabOverview: st.tab === "overview", tabContent: st.tab === "content", tabAudience: st.tab === "audience", tabReports: st.tab === "reports",
+      ageDist, countries, gender, sources, reports,
+      settingsNav, secProfile: st.settingsSection === "profile", secPlan: st.settingsSection === "plan", secNotif: st.settingsSection === "notifications", secTeam: st.settingsSection === "team",
+      invoices, notifList, team,
+      query: st.query, range: st.range,
+      onSearch: (e) => this.setState({ query:e.target.value }), onRange: (e) => this.setState({ range:e.target.value }),
+    };
+  }
+}
+</script>
+</body>
+</html>

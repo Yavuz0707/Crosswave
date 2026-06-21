@@ -1,0 +1,107 @@
+/* ============================================================
+   Crosswave — global styles
+   Design tokens ported verbatim from the approved Claude Design
+   ("Vinea") export. Do not redesign; keep palette/typography intact.
+   ============================================================ */
+:root {
+  --cream-50:#FFFCF7;--cream-100:#FFF8EF;--cream-150:#FAF7F0;--cream-200:#F5EEE2;--cream-300:#ECE2D2;--cream-400:#DFD2BD;
+  --bordeaux-50:#FBF0F1;--bordeaux-100:#F4DDDF;--bordeaux-200:#E6BCC0;--bordeaux-400:#A24E58;--bordeaux-500:#883A44;--bordeaux-600:#722F37;--bordeaux-700:#6D2932;--bordeaux-800:#542027;--bordeaux-900:#3C171C;
+  --gold-50:#FBF5E9;--gold-100:#F4E9CF;--gold-200:#E8D2A3;--gold-400:#D6B978;--gold-500:#C2A05D;--gold-600:#A6863F;
+  --ink-900:#2B2422;--ink-700:#4C4440;--ink-600:#635A54;--ink-500:#837871;--ink-400:#A89D94;--ink-300:#C8BCB1;--ink-200:#E2D7CB;
+  --green-50:#EBF3ED;--green-500:#3F7D5B;--green-700:#2E5C43;--red-50:#FBEDEC;--red-500:#B8453C;--red-700:#8E332C;--amber-50:#FBF1E2;--amber-500:#C58A33;--teal-50:#E9F1F1;--teal-500:#3E7A7A;--yt-red:#C8362C;
+  --bg-app:var(--cream-150);--bg-app-warm:var(--cream-100);--surface-card:#FFFFFF;--surface-raised:#FFFDFA;--surface-muted:var(--cream-200);--surface-sunken:var(--cream-100);
+  --border-subtle:var(--cream-300);--border-strong:var(--cream-400);--border-accent:var(--bordeaux-200);
+  --text-primary:var(--ink-900);--text-secondary:var(--ink-600);--text-muted:var(--ink-500);--text-faint:var(--ink-400);--text-on-accent:var(--cream-50);
+  --accent:var(--bordeaux-700);--accent-hover:var(--bordeaux-800);--accent-press:var(--bordeaux-900);--accent-soft:var(--bordeaux-50);--accent-soft-2:var(--bordeaux-100);
+  --gold:var(--gold-500);--gold-soft:var(--gold-50);
+  --positive:var(--green-500);--positive-soft:var(--green-50);--negative:var(--red-500);--negative-soft:var(--red-50);--warning:var(--amber-500);--warning-soft:var(--amber-50);--info:var(--teal-500);--info-soft:var(--teal-50);
+  --font-sans:'Hanken Grotesk',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;--font-serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --radius-xs:6px;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:28px;--radius-full:999px;
+  --shadow-xs:0 1px 2px rgba(60,23,28,.05);--shadow-sm:0 1px 3px rgba(60,23,28,.06),0 1px 2px rgba(60,23,28,.04);--shadow-md:0 4px 12px rgba(60,23,28,.07),0 1px 3px rgba(60,23,28,.05);--shadow-lg:0 12px 28px rgba(60,23,28,.10),0 2px 6px rgba(60,23,28,.06);--shadow-accent:0 6px 18px rgba(109,41,50,.22);
+  --focus-ring:0 0 0 3px var(--bordeaux-100);--sidebar-width:264px;
+}
+
+* { box-sizing: border-box; }
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--bg-app);
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+button { font-family: var(--font-sans); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--cream-400); border-radius: 999px; border: 3px solid var(--bg-app); }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-300); }
+
+/* ---- Reusable interactive primitives (hover/focus can't live in inline styles) ---- */
+.cw-input {
+  width: 100%; height: 44px; padding: 0 14px;
+  border: 1px solid var(--border-subtle); border-radius: var(--radius-md);
+  background: var(--surface-card); font-family: var(--font-sans); font-size: 14px;
+  color: var(--text-primary); outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.cw-input:focus { border-color: var(--accent); box-shadow: var(--focus-ring); }
+.cw-input::placeholder { color: var(--text-faint); }
+
+.cw-btn-accent {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: none; border-radius: var(--radius-md); background: var(--accent);
+  color: var(--text-on-accent); font-size: 15px; font-weight: 600; cursor: pointer;
+  box-shadow: var(--shadow-accent); transition: background .18s ease, transform .12s ease, opacity .15s ease;
+}
+.cw-btn-accent:hover:not(:disabled) { background: var(--accent-hover); }
+.cw-btn-accent:active:not(:disabled) { transform: translateY(1px); }
+.cw-btn-accent:disabled { opacity: .6; cursor: not-allowed; box-shadow: none; }
+
+.cw-btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid var(--border-subtle); border-radius: var(--radius-md);
+  background: var(--surface-card); color: var(--text-primary);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: background .18s ease;
+}
+.cw-btn-secondary:hover:not(:disabled) { background: var(--surface-muted); }
+.cw-btn-secondary:disabled { opacity: .6; cursor: not-allowed; }
+
+.cw-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border-subtle); border-radius: var(--radius-md);
+  background: var(--surface-card); color: var(--text-secondary); cursor: pointer;
+  transition: background .18s ease;
+}
+.cw-icon-btn:hover:not(:disabled) { background: var(--surface-muted); }
+
+.cw-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.cw-card-interactive { transition: box-shadow .25s ease, transform .25s ease; }
+.cw-card-interactive:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+.client-item { transition: background .16s ease; }
+.client-item:hover { background: var(--surface-muted) !important; }
+
+.table-row { transition: background .16s ease; }
+.table-row:hover { background: var(--surface-sunken); }
+
+.cw-link-btn { border: none; background: none; font-family: var(--font-sans); font-weight: 600; color: var(--accent); cursor: pointer; padding: 0; }
+
+/* ---- Skeleton shimmer ---- */
+.skeleton { position: relative; overflow: hidden; background: var(--surface-muted); border-radius: var(--radius-sm); }
+.skeleton::after {
+  content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  animation: cw-shimmer 1.4s ease-in-out infinite;
+}
+@keyframes cw-shimmer { 100% { transform: translateX(100%); } }
+
+/* ---- Spinner ---- */
+.cw-spin { animation: cw-spin .7s linear infinite; transform-origin: center; }
+@keyframes cw-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
