@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
 
@@ -12,12 +13,25 @@ from app import __version__
 from app.api.v1 import api_router
 from app.core.config import settings
 from app.core.database import engine
+from app.scheduler import (
+    seed_dev_metrics_if_needed,
+    shutdown_scheduler,
+    start_scheduler,
+)
+
+logger = logging.getLogger("app.main")
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
-    """Application lifespan: dispose the DB engine on shutdown."""
+    """Start the nightly-sync scheduler (and dev seed) on startup; clean up on shutdown."""
+    try:
+        start_scheduler()
+        await seed_dev_metrics_if_needed()
+    except Exception:  # noqa: BLE001 - never let startup helpers block the app
+        logger.exception("Scheduler/seed startup failed")
     yield
+    shutdown_scheduler()
     await engine.dispose()
 
 

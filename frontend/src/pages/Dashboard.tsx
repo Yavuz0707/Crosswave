@@ -5,6 +5,7 @@ import { connectAccount, listAccounts, syncAccount } from "../api/accounts";
 import { createClient, listClients } from "../api/clients";
 import { extractErrorMessage } from "../api/client";
 import { getAccountContent, getAccountMetrics } from "../api/metrics";
+import { generateReport } from "../api/reports";
 import type {
   AccountMetricsDaily,
   Client,
@@ -29,6 +30,7 @@ import {
   IconCalendar,
   IconChevronDown,
   IconChevronRight,
+  IconDownload,
   IconEye,
   IconFileText,
   IconInbox,
@@ -90,6 +92,7 @@ export function DashboardPage() {
   const [range, setRange] = useState<RangeKey>("30");
   const [contentFilter, setContentFilter] = useState<ContentFilter>("all");
   const [syncing, setSyncing] = useState(false);
+  const [downloadingReport, setDownloadingReport] = useState(false);
   const [addClientOpen, setAddClientOpen] = useState(false);
   const [connectOpen, setConnectOpen] = useState(false);
 
@@ -277,6 +280,27 @@ export function DashboardPage() {
     }
   }, [primaryAccount, loadAccountData, toast]);
 
+  const handleDownloadReport = useCallback(async () => {
+    if (!primaryAccount) return;
+    setDownloadingReport(true);
+    try {
+      // MVP: fixed last-30-days window (a date range picker comes later).
+      const end = new Date();
+      const start = new Date();
+      start.setDate(end.getDate() - 30);
+      const iso = (d: Date) => d.toISOString().slice(0, 10);
+      await generateReport(primaryAccount.id, iso(start), iso(end));
+      // Browser shows its own download indicator; no success toast needed.
+    } catch (err) {
+      toast.show(
+        extractErrorMessage(err, "Rapor oluşturulamadı, tekrar dene."),
+        "error",
+      );
+    } finally {
+      setDownloadingReport(false);
+    }
+  }, [primaryAccount, toast]);
+
   // ---- render ----
   return (
     <PageTransition>
@@ -330,6 +354,8 @@ export function DashboardPage() {
                 onRange={setRange}
                 syncing={syncing}
                 onSync={handleSync}
+                downloadingReport={downloadingReport}
+                onDownloadReport={handleDownloadReport}
                 onGenerateReport={() => setTab("reports")}
                 onNotifications={() =>
                   toast.show("No new notifications.", "info")
@@ -461,6 +487,8 @@ interface HeaderProps {
   onRange: (r: RangeKey) => void;
   syncing: boolean;
   onSync: () => void;
+  downloadingReport: boolean;
+  onDownloadReport: () => void;
   onGenerateReport: () => void;
   onNotifications: () => void;
 }
@@ -473,6 +501,8 @@ function DashboardHeader({
   onRange,
   syncing,
   onSync,
+  downloadingReport,
+  onDownloadReport,
   onGenerateReport,
   onNotifications,
 }: HeaderProps) {
@@ -606,6 +636,22 @@ function DashboardHeader({
             <IconRefresh size={16} />
           )}
           {syncing ? "Syncing…" : "Sync"}
+        </button>
+
+        <button
+          type="button"
+          className="cw-btn-secondary"
+          style={{ height: 38, padding: "0 14px" }}
+          onClick={onDownloadReport}
+          disabled={!account || downloadingReport}
+          title="Son 30 günün PDF raporunu indir"
+        >
+          {downloadingReport ? (
+            <Spinner size={16} color="var(--accent)" />
+          ) : (
+            <IconDownload size={16} />
+          )}
+          {downloadingReport ? "Hazırlanıyor…" : "PDF İndir"}
         </button>
 
         <button
