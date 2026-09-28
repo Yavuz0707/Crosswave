@@ -5,7 +5,7 @@
 ### Ajanslar için white-label sosyal medya büyüme takip platformu
 
 Birden fazla müşteri kanalını **tek panelden** izle, büyümeyi takip et ve
-tek tıkla **markalı PDF raporlar** üret — tablolarla uğraşmadan.
+tek tıkla **markalı PDF raporlar** üret — tablolarla uğraşmadan..
 
 [![CI](https://github.com/Yavuz0707/Crosswave/actions/workflows/ci.yml/badge.svg)](https://github.com/Yavuz0707/Crosswave/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-722F37.svg)](LICENSE)
