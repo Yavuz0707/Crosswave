@@ -2,7 +2,7 @@
 
 # 🍇 Crosswave
 
-### Ajanslar için white-label sosyal medya büyüme takip platformu
+### Ajanslar için  sosyal medya büyüme takip platformu
 
 Birden fazla müşteri kanalını **tek panelden** izle, büyümeyi takip et ve
 tek tıkla **markalı PDF raporlar** üret — tablolarla uğraşmadan.
